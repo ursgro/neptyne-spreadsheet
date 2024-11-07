@@ -1,0 +1,2 @@
+-r requirements.txt
+-r neptyne_kernel/requirements-extras.in

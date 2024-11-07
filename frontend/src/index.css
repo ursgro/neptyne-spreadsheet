@@ -1,0 +1,223 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  overflow: hidden;
+}
+
+.equation.cell {
+  position: relative;
+}
+.error.cell {
+  background: rgba(255, 0, 0, 0.14);
+  font-size: 0.8em;
+  color: red;
+}
+.error.cell > div.text {
+  text-align: center;
+}
+.equation.cell:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-style: solid;
+  border-width: 6px 6px 0 0;
+  border-color: #2185d0 transparent transparent transparent;
+  z-index: 2;
+}
+
+.row-handle.cell {
+  width: 1rem;
+}
+
+tbody .row-handle.cell,
+thead .cell:not(.row-handle) {
+  cursor: move;
+}
+
+.data-grid-container table.data-grid tr {
+  background: white;
+}
+.data-grid-container table.data-grid .drop-target,
+.data-grid-container table.data-grid thead .cell.read-only.drop-target {
+  background: #6f86fc;
+  transition: none;
+  color: white;
+}
+.data-grid-container table.data-grid thead .cell.read-only {
+  transition: none;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.data-grid-container .data-grid .cell {
+  min-height: 4px;
+  height: inherit;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.data-grid-container .data-grid .cell > input {
+  min-height: 22px;
+  padding: 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.cell-format-bold {
+  font-weight: bold;
+}
+
+.cell-format-italic {
+  font-style: italic;
+}
+
+.cell-format-underline {
+  text-decoration: underline;
+}
+
+.cell-format-text-align-left {
+  text-align: left !important;
+}
+
+.cell-format-text-align-center {
+  text-align: center !important;
+}
+
+.cell-format-text-align-right {
+  text-align: right !important;
+}
+
+.cell-format-vertical-align-bottom {
+  align-items: end;
+}
+
+.cell-format-vertical-align-middle {
+  align-items: center;
+}
+
+.cell-format-vertical-align-top {
+  align-items: start;
+}
+
+.widget-viewer {
+  display: flex;
+  height: 100%;
+}
+
+.cell-format-url {
+  color: #0d47a1;
+  text-decoration: underline;
+}
+
+.data-grid-container .data-grid .cell.selected {
+  border-color: #ddd;
+  box-shadow: none;
+}
+
+.data-grid-container .data-grid .cell.first-selected-cell {
+  z-index: 2;
+}
+
+.data-grid-container .data-grid .cell.selected.first-selected-cell {
+  outline: 1px solid rgb(33, 133, 208);
+}
+
+.cell .value-viewer {
+  box-sizing: border-box;
+  display: flex !important;
+  height: inherit !important;
+  margin: -1px 0px;
+  padding: 0px 4px;
+  overflow: hidden;
+}
+
+.cell .value-viewer .value {
+  max-height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+.sheet-header-button {
+  flex: 0 1 auto;
+  height: 10px;
+  width: 10px;
+  background: white;
+  border: 1px solid;
+}
+
+.sheet-header-button.unhide-left {
+  margin-right: auto;
+}
+
+.sheet-header-button.unhide-right {
+  margin-left: auto;
+  margin-right: 2px;
+}
+
+.sheet-header-button:hover {
+  background: #b7b7b7;
+}
+
+.sheet-header-button.unhide-top {
+  display: flex;
+  bottom: 4px;
+  position: absolute;
+}
+
+.sheet-header-button.unhide-bottom {
+  display: block;
+  top: 3px;
+  position: absolute;
+}
+
+.data-grid-container .data-grid .cell.cell-format-hidden-gridlines {
+  border-color: transparent;
+}
+
+.data-grid-container .data-grid .cell.cell-format-border-top {
+  border-top-color: #000;
+}
+
+.data-grid-container .data-grid .cell.cell-format-border-bottom {
+  border-bottom-color: #000;
+}
+
+.data-grid-container .data-grid .cell.cell-format-border-left {
+  border-left-color: #000;
+}
+
+.data-grid-container .data-grid .cell.cell-format-border-right {
+  border-right-color: #000;
+}

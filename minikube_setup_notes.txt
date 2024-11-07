@@ -1,0 +1,11 @@
+# Set up minikube
+
+## To get neptyne running on minikube:
+1. install minikube
+2. minikube addons enable gcp-auth
+3. minikube addons enable gcp-auth --refresh
+4. minikube addons enable ingress
+5. gcloud auth configure-docker us-east1-docker.pkg.dev
+6. minikube tunnel
+7. kubectl apply -R -f k8s/
+8. visit 127.0.0.1

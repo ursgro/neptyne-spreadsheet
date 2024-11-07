@@ -1,0 +1,23 @@
+lint.ignore = [
+    # ignore line too long, because black doesn't auto-format comments and strings
+    "E501",
+    # don't forbid typing.Callable (we use it in widget definitions, distinct from collections.abc.Callable)
+    "UP035",
+]
+exclude = [
+    "alembic/",
+    "server/code_prompts/",
+    "neptyne_kernel/neptyne_protocol.py",
+    "excelint-service/",
+]
+lint.select = [
+    "E",
+    "F",
+    "I",
+    "U",
+    "RUF",
+]
+lint.unfixable = [
+    # Don't auto-fix unused variables. Having those deleted while you are developing is confusing
+    "F841",
+]

@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <script>
+      window.gsheetAppConfig = null;
+      window.tyneFileName = "{{tyne_file_name}}";
+      if ("".toString() === "<?= null ?>") {
+        // In GSheets template mode, the above resolves to true
+        window.gsheetAppConfig = JSON.parse("<?= gsheetAppConfig ?>");
+      }
+    </script>
+    <script>
+      const idTokenPromise = new Promise((resolve, reject) => {
+        if (!window.gsheetAppConfig || !window.gsheetAppConfig.sharedSecret) {
+          reject("No token found");
+        } else {
+          resolve(window.gsheetAppConfig.sharedSecret);
+        }
+      });
+    </script>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      id="guest"
+      src="{{iframe_src}}"
+      width="100%"
+      height="100%"
+      style="border: none; margin: 0; padding: 0; display: block"
+      sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"
+    ></iframe>
+    <script>
+      function sendMessage(target, data) {
+        const guestwindow =
+          target || document.getElementById("guest").contentWindow;
+        guestwindow.postMessage(
+          {
+            stCommVersion: 1,
+            ...data,
+          },
+          "*"
+        );
+      }
+
+      const openAdvancedFeaturesAuth = () => {
+        if (!window.gsheetAppConfig) {
+          return;
+        }
+        const gsheetAppConfig = window.gsheetAppConfig;
+        const serverUrlBase = gsheetAppConfig.serverUrlBase || "";
+        const params = new URLSearchParams({ poppedOut: "true" });
+        params.append(
+          "gsheetAppConfig",
+          JSON.stringify({
+            ...gsheetAppConfig,
+            gsWidgetMode: "advanced-features",
+          })
+        );
+        const url = `${serverUrlBase}/-/?${params.toString()}`;
+        const target = "neptyne-advanced-features";
+        const width = 700;
+        const height = 500;
+        const left = window.screen.width / 2 - width / 2;
+        const top = window.screen.height / 2 - height / 2;
+        const newWindow = window.open(
+          url,
+          target,
+          `width=${width},height=${height},left=${left},top=${top},resizable,scrollbars=yes,toolbar=no,location=no,menubar=no,status=no,directories=no`
+        );
+        if (!newWindow) {
+          window.open(url, target);
+        }
+      };
+
+      window.addEventListener("message", (event) => {
+        if (event.data.type === "CUSTOM_PARENT_MESSAGE") {
+          console.log("Received custom message from guest", event.data.message);
+          let message;
+          try {
+            message = JSON.parse(event.data.message);
+          } catch (e) {
+            console.error("Failed to parse message", e);
+            return;
+          }
+          if (message.type === "gsheet_not_authorized") {
+            openAdvancedFeaturesAuth();
+          }
+        } else if (event.data.type === "GUEST_READY") {
+          sendMessage(event.source, {
+            type: "SET_MENU_ITEMS",
+            items: [
+              {
+                type: "text",
+                label: "Open in Separate Window",
+                key: "pop-out",
+              },
+            ],
+          });
+          idTokenPromise.then((token) => {
+            let combinedToken;
+            if (window.gsheetAppConfig !== null) {
+              const { projectId, authToken } = window.gsheetAppConfig;
+              combinedToken = `${token || ""}:${authToken}:${projectId}`;
+            } else {
+              combinedToken = `${token}::`;
+            }
+            const encodedToken = btoa(combinedToken)
+              .replaceAll("=", "")
+              .replaceAll("+", "-")
+              .replaceAll("/", "_");
+            sendMessage(event.source, {
+              type: "SET_AUTH_TOKEN",
+              authToken: encodedToken,
+              jwtHeaderName: "X-NEPTYNE-AUTH-TOKEN",
+              jwtHeaderValue: combinedToken,
+            });
+          });
+        }
+      });
+
+      if (window.gsheetAppConfig !== null) {
+        const url = `${window.gsheetAppConfig.serverUrlBase}/apps/${window.tyneFileName}`;
+        window.addEventListener("message", (event) => {
+          if (
+            event.data.type === "MENU_ITEM_CALLBACK" &&
+            event.data.key === "pop-out"
+          ) {
+            window.open(url, "_blank");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

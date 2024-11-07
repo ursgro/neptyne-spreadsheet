@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Email Opt-Out</title>
+</head>
+<body>
+    <h1>Email Opt-Out</h1>
+    {% if did_opt_out %}
+        <p>
+            You have successfully opted out of emails from <a href="{{ tyne_link }}">{{ tyne_link }}</a>.
+        </p>
+        <p>
+            If you want to opt back in, click the button below:
+        </p>
+        <form action="{{ action_link }}" method="post">
+            <input type="hidden" name="token" value="{{ token }}" />
+            <input type="hidden" name="opt_out" value="false" />
+            <input type="submit" value="Opt In" />
+        </form>
+    {% else %}
+        <p>
+            To opt out of emails from <a href="{{ tyne_link }}">{{ tyne_link }}</a>, click the button below.
+        </p>
+        <form action="{{ action_link }}" method="post">
+            <input type="hidden" name="token" value="{{ token }}" />
+            <input type="hidden" name="opt_out" value="true" />
+            <input type="submit" value="Opt Out" />
+        </form>
+    {% end %}
+</body>
+</html>

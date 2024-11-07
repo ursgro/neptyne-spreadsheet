@@ -1,0 +1,4 @@
+logo
+venv*
+server/kernel_connections
+stress_test

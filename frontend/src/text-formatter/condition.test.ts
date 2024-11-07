@@ -1,0 +1,35 @@
+import { formatNumberToText } from "./formatter";
+
+test.each<[any, string, string]>([
+  ["Hello", '"p"0;"m"0;"z"0;"t"@', "tHello"],
+  ["Hello", '"num"0', "Hello"],
+  [-1, '"p"0;"m"0;"z"0;"t"@', "m1"],
+  [0, '"p"0;"m"0;"z"0;"t"@', "z0"],
+  [1, '"p"0;"m"0;"z"0;"t"@', "p1"],
+  [-1, '[<0]"p"0;"m"0;"z"0;"t"@', "p1"],
+  [0, '[<0]"p"0;"m"0;"z"0;"t"@', "z0"],
+  [1, '[<0]"p"0;"m"0;"z"0;"t"@', "z1"],
+  [-1, '"p"0;[>0]"m"0;"z"0;"t"@', "-z1"],
+  [0, '"p"0;[>0]"m"0;"z"0;"t"@', "z0"],
+  [1, '"p"0;[>0]"m"0;"z"0;"t"@', "p1"],
+  [-1, '[<0]"LT0";"ELSE"', "LT0"],
+  [0, '[<0]"LT0";"ELSE"', "ELSE"],
+  [1, '[<0]"LT0";"ELSE"', "ELSE"],
+  [-1, '[<=0]"LTE0";"ELSE"', "LTE0"],
+  [0, '[<=0]"LTE0";"ELSE"', "LTE0"],
+  [1, '[<=0]"LTE0";"ELSE"', "ELSE"],
+  [-1, '[>0]"GT0";"ELSE"', "ELSE"],
+  [0, '[>0]"GT0";"ELSE"', "ELSE"],
+  [1, '[>0]"GT0";"ELSE"', "GT0"],
+  [-1, '[>=0]"GTE0";"ELSE"', "ELSE"],
+  [0, '[>=0]"GTE0";"ELSE"', "GTE0"],
+  [1, '[>=0]"GTE0";"ELSE"', "GTE0"],
+  [-1, '[=0]"EQ0";"ELSE"', "ELSE"],
+  [0, '[=0]"EQ0";"ELSE"', "EQ0"],
+  [1, '[=0]"EQ0";"ELSE"', "ELSE"],
+  [-1, '[<>0]"NEQ0";"ELSE"', "NEQ0"],
+  [0, '[<>0]"NEQ0";"ELSE"', "ELSE"],
+  [1, '[<>0]"NEQ0";"ELSE"', "NEQ0"],
+])("Condition: %s, format string: %s, result: %s", (value, fmt, result) =>
+  expect(formatNumberToText(value, fmt)).toBe(result)
+);

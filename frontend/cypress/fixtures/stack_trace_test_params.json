@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Bad text style",
+    "code": "A1.set_text_style('bbb')"
+  },
+  {
+    "name": "Bad background color",
+    "code": "A1.set_background_color('a','b','c')"
+  },
+  {
+    "name": "Bad text align",
+    "code": "A1.set_text_align('align')"
+  }
+]

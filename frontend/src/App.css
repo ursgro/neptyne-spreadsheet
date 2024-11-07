@@ -1,0 +1,457 @@
+body {
+  overflow: hidden;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.CodeMirror {
+  border: 1px solid #eee;
+}
+
+.cm-s-heightsheet {
+  height: 60px !important;
+}
+.cm-s-heightcode {
+  height: 100% !important;
+}
+.cm-s-heightnotebook {
+  height: auto !important;
+}
+
+.cm-placeholder {
+  height: 14px;
+}
+
+#sheet_container {
+  width: 100%;
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(50, 50, 50, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.cell.updated {
+  background-color: unset !important;
+  transition: unset !important;
+}
+
+.data-grid-container .data-grid .cell {
+  transition: none;
+}
+
+.MuiSnackbar-anchorOriginTopCenter {
+  top: 48px;
+}
+
+.rdx-header-cell {
+  box-sizing: border-box;
+  position: relative;
+  text-overflow: ellipsis;
+  padding: 0;
+}
+
+.code-resize-bar {
+  background-color: #dedede;
+  height: 100%;
+  margin-bottom: 1px;
+}
+
+.repl-resize-bar {
+  position: relative;
+}
+
+.repl-resize-bar::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+}
+
+body {
+  overscroll-behavior-x: none;
+}
+
+.cell-note {
+  position: relative;
+}
+.cell-note:after {
+  /* Magic Happens Here!!! */
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  display: block;
+  border-left: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-top: 9px solid #804040;
+}
+
+.cell.with-timer {
+  background-image: url("data:image/svg+xml,%3Csvg%20class%3D%22svg-icon%22%20style%3D%22width%3A%201em%3B%20height%3A%201em%3Bvertical-align%3A%20middle%3Bfill%3A%20%23808080%3Boverflow%3A%20hidden%3B%22%20viewBox%3D%220%200%201024%201024%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M511.786667%2085.333333C276.053333%2085.333333%2085.333333%20276.266667%2085.333333%20512s190.72%20426.666667%20426.453334%20426.666667C747.52%20938.666667%20938.666667%20747.733333%20938.666667%20512S747.52%2085.333333%20511.786667%2085.333333zM512%20853.333333c-188.586667%200-341.333333-152.746667-341.333333-341.333333S323.413333%20170.666667%20512%20170.666667s341.333333%20152.746667%20341.333333%20341.333333-152.746667%20341.333333-341.333333%20341.333333z%20m21.333333-554.666666h-64v256l223.786667%20134.4L725.333333%20636.586667l-192-113.92z%22%20%20%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-size: 12px;
+}
+
+.code-container {
+  overflow: auto;
+  height: 30px;
+  outline: 1px solid rgb(33, 133, 208);
+  margin: 1px;
+
+  -ms-overflow-style: none; /* hide scrollbar for IE and Edge */
+  scrollbar-width: none; /* hide scrollbar for Firefox */
+}
+
+.code-container.top-editor {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  outline-color: #e5e5e5;
+  height: 36px;
+  padding: 0 10px;
+}
+
+.code-container.top-editor .top-code-editor-wrapper {
+  flex-grow: 1;
+  height: 100%;
+}
+
+.code-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+}
+
+.cell-code-container {
+  text-align: left;
+  background-color: white;
+}
+
+.cm-focused {
+  outline: 0 !important;
+}
+
+#autofill-drag-control {
+  position: absolute;
+  bottom: -3.5px;
+  right: -3.5px;
+  width: 7px;
+  height: 7px;
+  background: rgb(33, 133, 208);
+  outline: 1px solid white;
+  cursor: crosshair;
+}
+
+#code-editor .cm-scroller::-webkit-scrollbar {
+  height: 10px;
+}
+
+/* firefox */
+#code-editor .cm-scroller {
+  scrollbar-width: 10px;
+}
+
+.repl-resize-bar {
+  border-top: 5px solid #ddd;
+}
+
+.rdx-height-resize-handle {
+  cursor: row-resize;
+  position: absolute;
+  border-top: 2px solid #ddd;
+  right: 1px;
+  left: 1px;
+  bottom: 0;
+}
+
+.cm-completionLabel::after {
+  content: "\a";
+  white-space: pre;
+}
+
+.cm-completionDetail {
+  margin-left: 0px !important;
+}
+
+.cm-editor {
+  height: 100%;
+  font-size: 13px;
+  color: #000000;
+}
+
+@media (max-width: 420px) {
+  .cm-editor {
+    font-size: 11.5px;
+  }
+}
+
+.cm-editor .cm-tooltip-autocomplete ul li[aria-selected="true"] {
+  background-color: rgb(33, 133, 208);
+}
+
+/* Is user inputs =SU and editor suggests SUM, than "SU" node will be marked with this class. */
+.cm-completionLabel .cm-completionMatchedText {
+  font-weight: bold;
+  text-decoration: unset;
+}
+
+/* Show 10 options of autocomplete */
+.cell-code-container .cm-editor .cm-tooltip-autocomplete ul {
+  max-height: 330px;
+}
+
+.cell-code-container .cm-editor {
+  position: relative;
+}
+
+.cell-code-container .cm-content {
+  padding: 0;
+}
+
+.cell-code-container .cm-line {
+  height: 20px;
+  line-height: 20px;
+  padding: 0 2px 0 4px;
+}
+
+/* Show autocomplete tooltip exactly below the editor's line for cells */
+.cell-code-container .cm-editor .cm-tooltip-autocomplete {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+}
+
+/* Show autocomplete tooltip exactly below the editor's line for header */
+.code-container .cm-editor .cm-tooltip-autocomplete {
+  margin-top: 32px;
+  margin-left: -2px;
+  top: initial !important;
+  left: initial !important;
+}
+
+.data-grid-container .data-grid .cell.selected.protected {
+  background-color: rgb(168, 211, 255);
+}
+
+.code-container.protected {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  cursor: not-allowed;
+  background-color: rgb(168, 211, 255);
+}
+
+.alert-icon-centered .MuiAlert-icon {
+  align-items: center;
+}
+
+.open-dialog-nav-container {
+  width: 100%;
+}
+
+.open-dialog-content-container {
+  height: 380px;
+  min-width: 75%;
+  border: 1px solid #d6ddeb;
+  padding: 18px;
+  background-color: white;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+
+.help-requested-nav-container {
+  width: 150px;
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.prompt-gutter-busy-dot {
+  animation: smoothblink 600ms infinite alternate;
+  animation-timing-function: linear;
+}
+
+.prompt-gutter-busy-dot-1 {
+  animation-delay: 400ms;
+}
+.prompt-gutter-busy-dot-2 {
+  animation-delay: 800ms;
+}
+
+@keyframes smoothblink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@font-face {
+  font-family: biryani;
+  src: url(fonts/biryani.ttf);
+}
+
+@font-face {
+  font-family: bodoniModa;
+  src: url(fonts/bodoni-moda.ttf);
+}
+
+@font-face {
+  font-family: cedarville;
+  src: url(fonts/cedarville.ttf);
+}
+
+@font-face {
+  font-family: comicNeue;
+  src: url(fonts/comic-neue.ttf);
+}
+
+@font-face {
+  font-family: ebGaramond;
+  src: url(fonts/eb-garamond.ttf);
+}
+
+@font-face {
+  font-family: libreFranklin;
+  src: url(fonts/libre-franklin.ttf);
+}
+
+@font-face {
+  font-family: montserrat;
+  src: url(fonts/montserrat.ttf);
+}
+
+@font-face {
+  font-family: openSans;
+  src: url(fonts/open-sans.ttf);
+}
+
+@font-face {
+  font-family: notoSerif;
+  src: url(fonts/noto-serif.ttf);
+}
+
+@font-face {
+  font-family: secularOne;
+  src: url(fonts/secular-one.ttf);
+}
+
+@font-face {
+  font-family: sofiaSansSemicondensed;
+  src: url(fonts/sofia-sans-semicondensed.ttf);
+}
+
+@font-face {
+  font-family: robotoMono;
+  src: url(fonts/roboto-mono.ttf);
+}
+
+.data-grid-container:focus {
+  outline: none;
+}
+
+.scrollable-grid {
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollable-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.cell .value-viewer .value::selection {
+  background: transparent;
+}
+
+.cell .value-viewer .value::-moz-selection {
+  background: transparent;
+}
+
+.cell .value-viewer {
+  word-wrap: normal;
+}
+
+.cm-gutters {
+  font-family: monospace;
+}
+
+#dimension-size-grid .cell:not(.cell-autosize-mode) {
+  position: initial !important;
+  height: auto !important;
+  width: auto !important;
+}
+
+#dimension-size-grid .cell .value-viewer {
+  display: block !important;
+}
+
+.overflown:not(.selected) {
+  opacity: 0;
+}
+
+.premium-avatar-badge > path {
+  stroke: #ffffff;
+  stroke-width: 1px;
+  stroke-linejoin: round;
+}
+
+.cm-tooltip > ul {
+  overscroll-behavior: contain;
+}
+
+.prompt-gutter {
+  min-width: 30px;
+  text-align: center;
+  user-select: none;
+}
+
+.streamlit-launch > span {
+  margin: 4px;
+  cursor: pointer;
+}
+
+.streamlit-launch-text {
+  font-family: "DM Sans", Sans-serif, sans-serif;
+  font-size: 12px;
+}
+
+.streamlit-launch-icon {
+  width: 12px;
+  color: rgb(38, 191, 173);
+  font-size: 16px;
+}
+
+.simple-grid-header {
+  pointer-events: none;
+}

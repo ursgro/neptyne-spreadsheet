@@ -1,0 +1,48 @@
+.data-grid {
+  border-spacing: 0;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  table-layout: fixed;
+  color: #000000;
+}
+
+.data-grid .cell {
+  height: 17px;
+  cursor: cell;
+  vertical-align: middle;
+  text-align: right;
+  /*
+    Please check and change .value-viewer margin in frontend/src/App.css
+    on border width change.
+   */
+  border: 0.5px solid #e7e7e7;
+  padding: 0;
+}
+
+.data-grid .cell > div {
+  /* user-select: none shouldn't affect editability for Safari */
+  -webkit-user-select: text;
+}
+
+.data-grid .cell {
+  vertical-align: bottom;
+}
+
+.cell-overflow-mode {
+  word-break: break-word;
+  white-space: pre;
+}
+
+.cell-autosize-mode {
+  white-space: pre-line;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.cell-truncate-mode {
+  white-space: pre;
+  word-break: break-word;
+}
+
+.data-grid .cell .data-editor {
+  display: block !important;
+}

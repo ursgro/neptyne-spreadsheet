@@ -1,0 +1,7 @@
+# Firebase cache
+.firebase/
+
+# Docs build artifacts
+public/index.html
+public/search.js
+public/server/

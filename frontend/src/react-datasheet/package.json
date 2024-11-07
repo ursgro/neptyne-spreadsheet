@@ -1,0 +1,14 @@
+{
+  "name": "react-datasheet",
+  "description": "Excel-like data grid for React",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nadbm/react-datasheet.git"
+  },
+  "author": "Nadim Islam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nadbm/react-datasheet/issues"
+  },
+  "types": "types/react-datasheet.d.ts"
+}

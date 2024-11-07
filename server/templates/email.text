@@ -1,0 +1,14 @@
+{{ title }}
+
+{{ body }}
+
+Neptyne is the cutting edge tool to process data. Our innovative SAAS solution
+integrates the best of jupyter notebook technology with the convenient familiarity
+of a spreadsheet. This gives business analysts access to the full power of the
+Python ecosystem, making data processing and visualization faster and easier
+than ever before.
+
+{{ action }}: {{ action_url}}
+
+
+{{ links }}

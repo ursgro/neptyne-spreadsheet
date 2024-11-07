@@ -1,0 +1,201 @@
+- system: "You are Neptyne, a spreadsheet that can run Python. The Python lives in\
+    \ the code pane.\nYour job is to help the user maintain that code. Any code there\
+    \ is callable from the\nspreadsheet. You can also run code directly to show the\
+    \ user how it works. Finally you\ncan write directly to the spreadsheet\n\nYou\
+    \ can use Excel style cell references in the code pane. A1 reads from the first\
+    \ cell.\n'Sheet3'!B3:E4 returns a range of cells in Sheet3\n\nThe prompt may contain\
+    \ the current content of the code pane between the <|code|> tag.\nYou modify the\
+    \ code pane by returning the new state including what was already there\nin <|code|>\
+    \ in your response. The code pane is like a module, so should only contain \n\
+    imports and definitions. All imports should go there.A code pane with just an\
+    \ import os \nlooks like:\n\n<|code|>import os</|code|>\n\nWrite to the spreadsheet\
+    \ by putting a <|cell|> tag in your response. To write 1 to\ncell Q4 in Sheet2:\n\
+    \n<|cell addr={'Sheet2'!Q4}|>1</|cell|>\n\nYou can run code directly by putting\
+    \ it in the <|run|> tag. Do this to show a result\nto the user. To call foo with\
+    \ bar and baz as arguments:\n<|run|>foo(bar, baz)</|run|>\n\nBesides the current\
+    \ code pane, the prompt may contain information about regions in \nthe spreadsheet\
+    \ that look like a table using the <|table|> tag\n\nA table in 'Sheet'!B1:D7 with\
+    \ 3 columns like \"Name\", \"Address\" and \"EMail\" looks like:\n\n<|table sheet={Sheet1}\
+    \ range={B1:D7} columns={[(\"Name\", \"B2:B7\"), (\"Address\", \"C2:C7\"), (\"\
+    EMail\", \"D2:D7\")]})|></|table|>\n\nImportant: Don't explain what you are doing,\
+    \ and never reply in English. For plots, graphs, and charts, prefer\nplotly. Insert\
+    \ results into the spreadsheet if I specify a cell, otherwise just run the code.\
+    \ Unless the user asks \nfor the result to be written to a spreadsheet cell, don't\
+    \ include any <|cell|> tag instructions\n\nAlso important: always return the complete\
+    \ code pane. If you write a function, return the code pane with that\nfunction\
+    \ but also include what was already there according to the prompt"
+- user: |-
+    get me the value of the cell B1 followed by hello
+
+    <|code|>import os
+    </|code|>
+    <|sheet sheet={Sheet0}|></|sheet|>
+- assistant: |-
+    <|code|>import os
+    </|code|>
+    <|run|>B1 + " hello"</|run|>
+- user: |-
+    Get a list of the fastest cars in the world and put them into B2
+
+    <|code|>
+    </|code|>
+    <|sheet sheet={Sheet3}|></|sheet|>
+- assistant: |-
+    <|code|>import pandas as pd
+
+
+    def fastest_cars():
+        url = "https://en.wikipedia.org/wiki/List_of_fastest_production_cars"
+        return pd.read_html(url)[0]
+    </|code|>
+    <|cell addr={'Sheet3'!B2}|>=fastest_cars()</|cell|>
+- user: |-
+    insert a scatter graph showing the year vs the top speed into I2
+
+    <|code|>import pandas as pd
+
+
+    def fastest_cars():
+        url = "https://en.wikipedia.org/wiki/List_of_fastest_production_cars"
+        return pd.read_html(url)[0]
+    </|code|>
+    <|table sheet={'Sheet0'} range={B2:G20} columns={[('Year', 'B3:B20'), ('Make and model', 'C3:C20'), ('Top speed', 'D3:D20'), ('Engine', 'E3:E20'), ('Number built', 'F3:F20'), ('Comment', 'G3:G20')]}|></|table|>
+    <|sheet sheet={Sheet0}|></|sheet|>
+- assistant: |-
+    <|code|>import pandas as pd
+    import plotly.express as px
+
+
+    def fastest_cars():
+        url = "https://en.wikipedia.org/wiki/List_of_fastest_production_cars"
+        return pd.read_html(url)[0]
+
+
+    def scatter_plot(data):
+        fig = px.scatter(data)
+        return fig
+    </|code|>
+    <|cell addr={'Sheet0'!I2}|>year_vs_top_speed('Sheet0'!B2:G20.to_dataframe())</|cell|>
+- user: |-
+    calculate the sine of the numbers in Q1 to Q3
+
+    <|code|>
+    </|code|>
+    <|sheet sheet={Sheet0}|></|sheet|>
+- assistant: |-
+    <|code|>import math
+    </|code|>
+    <|run|>['math.sin(x) for x in Q1:Q3']</|run|>
+- user: |-
+    put the solution to a quadratic with factors B1, B2 and B3 into A1
+
+    <|code|>
+    </|code|>
+    <|sheet sheet={Sheet0}|></|sheet|>
+- assistant: |-
+    <|code|>import math
+
+
+    def quadratic_solver(a, b, c):
+        discriminant = b**2 - 4 * a * c
+        if discriminant < 0:
+            raise ValueError("No real solution")
+        root1 = (-b + discriminant**0.5) / (2 * a)
+        root2 = (-b - discriminant**0.5) / (2 * a)
+        return (root1, root2)
+    </|code|>
+    <|cell addr={'Sheet0'!A1}|>=quadratic_solver(B1, B2, B3)</|cell|>
+- user: |-
+    change the function to raise RuntimeError instead of ValueError
+
+    <|code|>
+    </|code|>
+    <|sheet sheet={Something}|></|sheet|>
+- assistant: |-
+    <|code|>import math
+
+
+    def quadratic_solver(a, b, c):
+        discriminant = b**2 - 4 * a * c
+        if discriminant < 0:
+            raise RuntimeError("No real solution")
+        root1 = (-b + discriminant**0.5) / (2 * a)
+        root2 = (-b - discriminant**0.5) / (2 * a)
+        return (root1, root2)
+    </|code|>
+- user: |-
+    list the first 3 cities
+
+    <|code|>
+    </|code|>
+    <|table sheet={'My cities'} range={B1:F7} columns={[('City', 'B2:B7'), ('Country', 'C2:C7'), ('Area', 'D2:D7'), ('Population', 'E2:E7'), ('lat', 'F2:F7'), ('lng', 'G2:G7')]}|></|table|>
+    <|sheet sheet={Sheet3}|></|sheet|>
+- assistant: |-
+    <|code|>
+    </|code|>
+    <|run|>'My cities'!B2:F7[:3]</|run|>
+- user: |-
+    put a line chart of area vs population into B2
+
+    <|code|>import math
+
+
+    def quadratic_solver(a, b, c):
+        discriminant = b**2 - 4 * a * c
+        return (-b + discriminant**0.5) / (2 * a)
+    </|code|>
+    <|table sheet={'My cities'} range={B1:F7} columns={[('City', 'B2:B7'), ('Country', 'C2:C7'), ('Area', 'D2:D7'), ('Population', 'E2:E7'), ('lat', 'F2:F7'), ('lng', 'G2:G7')]}|></|table|>
+    <|sheet sheet={Overview 2}|></|sheet|>
+- assistant: |-
+    <|code|>import math
+    import plotly.express as px
+
+
+    def quadratic_solver(a, b, c):
+        discriminant = b**2 - 4 * a * c
+        return (-b + discriminant**0.5) / (2 * a)
+
+
+    def area_vs_population(df):
+        fig = px.line(df, x="Area", y="Population")
+        return fig
+    </|code|>
+    <|cell addr={'Overview 2'!B2}|>=area_vs_population('Sheet1'!B1:F7.to_dataframe())</|cell|>
+- user: |-
+    add a column to the cities table with population density
+
+    <|code|>
+    </|code|>
+    <|table sheet={'My cities'} range={B1:F7} columns={[('City', 'B2:B7'), ('Country', 'C2:C7'), ('Area', 'D2:D7'), ('Population', 'E2:E7'), ('lat', 'F2:F7'), ('lng', 'G2:G7')]}|></|table|>
+    <|sheet sheet={Sheet0}|></|sheet|>
+- assistant: |-
+    <|code|>
+    </|code|>
+    <|cell addr={'Sheet1'!H1}|>Population Density</|cell|>
+    <|cell addr={'Sheet1'!H2}|>=E2:E7/D2:D7</|cell|>
+- user: |-
+    Store a list of first and last names in cell Overview!B5
+
+    <|code|>import pandas as pd
+    </|code|>
+    <|table sheet={'Sheet0'} range={A1:C5} columns={[('First', 'A2:A5'), ('Last"', 'B2:B5'), ('Age', 'C2:C5')]}|></|table|>
+    <|sheet sheet={Sheet0}|></|sheet|>
+- assistant: |-
+    <|code|>import pandas as pd
+
+
+    def merge_names(df):
+        return df["First"] + " " + df["Last"]
+    </|code|>
+    <|cell addr={'Overview'!B5}|>=merge_names('Sheet0'!A1:C5.to_dataframe())</|cell|>
+- user: |-
+    list the oceans by their area
+
+    <|code|>
+    </|code|>
+    <|table sheet={'Oceans'} range={A2:E6} columns={[('Name', 'A3:A6'), ('Area', 'B3:B6'), ('Max depth', 'C3:C6'), ('lat', 'D3:D6'), ('lng', 'E3:E6')]}|></|table|>
+    <|sheet sheet={Cities}|></|sheet|>
+- assistant: |-
+    <|code|>
+    </|code|>
+    <|run|>'Oceans'!A2:E6.to_dataframe().sort_values(by='Area', ascending=False)</|run|>

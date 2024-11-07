@@ -1,0 +1,19 @@
+{% extends "default/module.html.jinja2" %}
+
+{% macro module_name() %}
+    <h1 class="modulename">
+        {% set new_modulename = module.modulename.replace("neptyne_kernel.neptyne_api", "neptyne") %}
+        {% set parts = new_modulename.split(".") %}
+        {% for part in parts %}
+            {%- set fullname = ".".join(parts[:loop.index]) -%}
+            {%- if fullname in all_modules and fullname != module.modulename -%}
+                <a href="./{{ "../" * loop.revindex0 }}{{ part }}.html">{{ part }}</a>
+            {%- else -%}
+                {{ part }}
+            {%- endif -%}
+            {%- if loop.nextitem -%}
+                <wbr>.
+            {%- endif -%}
+        {% endfor %}
+    </h1>
+{% endmacro %}

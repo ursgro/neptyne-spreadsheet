@@ -1,0 +1,186 @@
+name: Test
+
+on:
+  workflow_call:
+    inputs: {}
+  push:
+    branches-ignore:  # We call this workflow from the deploy.yml workflow, so exclude them from this trigger
+      - master
+      - release
+      - demo
+      - demo2
+
+permissions:
+  contents: "read"
+  id-token: "write"
+
+jobs:
+  test-python:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - uses: actions/cache@v4
+      with:
+        path: ${{ env.pythonLocation }}
+        key: ${{ env.pythonLocation }}-${{ hashFiles('requirements-dev.txt') }}
+        restore-keys: |
+          ${{ env.pythonLocation }}-
+    - run: python -m pip install -r requirements-dev.txt
+    - name: Run Pytest
+      env:
+        PYDEVD_DISABLE_FILE_VALIDATION: 1
+      run: python -m pytest
+
+  test-kernel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: mkdir /tmp/kernel-root && cp -R neptyne_kernel /tmp/kernel-root
+      - name: Run pytest
+        env:
+          PYDEVD_DISABLE_FILE_VALIDATION: 1
+          UNIT_TEST: 1
+        run: |
+          python -m pip install -r neptyne_kernel/requirements.txt
+          python -m pip install pytest
+          python -m pytest neptyne_kernel
+        working-directory: /tmp/kernel-root
+
+  mypy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: python -m pip install -r requirements-dev.txt
+
+  ruff:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: grep '^ruff=' requirements-dev.txt | xargs pip install
+      - run: ruff check .
+
+  black:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: grep '^ruff=' requirements-dev.txt | xargs pip install
+      - run: ./black.sh
+
+  test-ts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '16'
+        cache: 'yarn'
+        cache-dependency-path: frontend/yarn.lock
+    - uses: actions/cache@v4
+      with:
+        path: frontend/node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('frontend/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules
+    - run: yarn install
+      working-directory: frontend
+    - run: yarn test
+      working-directory: frontend
+
+  test-gsheets:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '16'
+        cache: 'yarn'
+        cache-dependency-path: gsheets/yarn.lock
+    - uses: actions/cache@v4
+      with:
+        path: gsheets/node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('frontend/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules
+    - run: yarn install
+      working-directory: gsheets
+    - run: yarn test
+      working-directory: gsheets
+
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+          cache: 'yarn'
+          cache-dependency-path: frontend/yarn.lock
+      - run: yarn add prettier@^2.8.8
+        working-directory: frontend
+      - run: git ls-files src | grep '.*\.tsx\?$' | xargs ./node_modules/.bin/prettier -c
+        working-directory: frontend
+
+  eslint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+          cache: 'yarn'
+          cache-dependency-path: frontend/yarn.lock
+      - run: yarn install
+        working-directory: frontend
+      - run: yarn run eslint '**/*.{ts,tsx}'
+        working-directory: frontend
+
+  test-codegen:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '16'
+        cache: 'yarn'
+        cache-dependency-path: frontend/yarn.lock
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    - run: grep '^quicktype@' yarn.lock | tr -d ':' | xargs yarn add --dev
+      working-directory: frontend
+    - run: grep '^ruff=' requirements-dev.txt | xargs pip install
+    - run: cp neptyne_protocol.py neptyne_protocol_target.py
+      working-directory: neptyne_kernel
+    - run: frontend/codegen.sh
+    - run: cmp neptyne_protocol.py neptyne_protocol_target.py
+      working-directory: neptyne_kernel

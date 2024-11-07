@@ -1,0 +1,16 @@
+[
+  {
+    "name": "MultiValueRepeatedKeyLiteral",
+    "code": "a = {'a': 0, 'b': 3, 'a': 5}",
+    "warnings": [
+    	{"line":"dictionary key 'a' repeated with different values",  "lineno": 1}
+    ]
+  },
+  {
+    "name": "RedefinedWhileUnused",
+    "code": "def a():\n    pass\n\ndef a():\n    pass",
+    "warnings": [
+    	{"line":"redefinition of unused 'a' from line 1",  "lineno": 5}
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+div[data-testid="stAppViewBlockContainer"] {
+    padding: 0 .25rem 0;
+}
+
+div[data-testid="stDecoration"] {
+    display: none;
+}
+
+header[data-testid="stHeader"] {
+    top: 0;
+    background: rgba(255, 255, 255, 0);
+    left: unset;
+    width: 0;
+}
+
+div[data-testid="stToolbar"] {
+    background: rgba(255, 255, 255, .75);
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, .1);
+    top: .25rem;
+}
+
+h1#title {
+    padding-top: 0;
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "identitytoolkit#DownloadAccountResponse",
+  "users": [
+    {
+      "localId": "vBY7MnU9yfhUZiIjakiUjYtarSn2",
+      "createdAt": "1645822817342",
+      "lastLoginAt": "1645822945577",
+      "displayName": "Test User",
+      "photoUrl": "",
+      "emailVerified": false,
+      "email": "test-user-0@neptyne.com",
+      "salt": "fakeSaltQTRdiBypxda846jPT3MV",
+      "passwordHash": "fakeHash:salt=fakeSaltQTRdiBypxda846jPT3MV:password=neptyne",
+      "passwordUpdatedAt": 1645822817342,
+      "validSince": "1645822817",
+      "providerUserInfo": [
+        {
+          "providerId": "password",
+          "email": "test-user-0@neptyne.com",
+          "federatedId": "test-user-0@neptyne.com",
+          "rawId": "test-user-0@neptyne.com",
+          "displayName": "Test User",
+          "photoUrl": ""
+        }
+      ],
+      "lastRefreshAt": "2022-02-25T21:05:01.988Z"
+    }
+  ]
+}

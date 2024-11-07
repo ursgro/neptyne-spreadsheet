@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ kernel_pod_name }}"
+  namespace: "{{ kernel_namespace }}"
+  annotations:
+    key: "{{ kernel_key }}"
+  labels:
+    component: kernel
+    kernel_version: "{{ kernel_version }}"
+    shard_index: "{{ shard_index }}"
+    kernel_protocol: "{{ kernel_protocol_version }}"
+spec:
+  restartPolicy: Never
+  serviceAccountName: neptyne-user-unprivileged
+  nodeSelector:
+    sandbox.gke.io/runtime: gvisor
+  tolerations:
+  - key: sandbox.gke.io/runtime
+    value: gvisor
+  enableServiceLinks: false
+  containers:
+  - env:
+    - name: KERNEL_LANGUAGE
+      value: python
+    - name: KERNEL_NAME
+      value: "{{ kernel_name }}"
+    - name: KERNEL_NAMESPACE
+      value: "{{ kernel_namespace }}"
+    - name: KERNEL_USERNAME
+      value: neptyne
+    - name: KERNEL_KEY
+      value: "{{ kernel_key }}"
+    - name: API_PROXY_HOST_PORT
+      value: "api-proxy:8888"
+    - name: NEPTYNE_SECRETS_PATH
+      value: "/secrets"
+    image: "{{ kernel_image }}"
+    name: "{{ kernel_pod_name }}"
+    resources:
+      requests:
+        cpu: 1m
+        ephemeral-storage: 1Gi
+        memory: 150Mi
+      limits:
+        cpu: 500m
+        ephemeral-storage: 5Gi
+        memory: 2Gi

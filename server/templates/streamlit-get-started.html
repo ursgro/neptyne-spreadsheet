@@ -1,0 +1,30 @@
+{% extends streamlit-placeholder-base.html %}
+{% block body %}
+<p>
+    Neptyne allows you to build UIs in Google Sheets using Streamlit. Simply use the @streamlit decorator like this:
+</p>
+{% apply highlight_code %}
+{% whitespace all %}
+import neptyne as nt
+import streamlit as st
+
+@nt.streamlit(title="My Streamlit App", width=640, height=480)
+def my_streamlit_function():
+    st.write("Hello, world!")
+{% whitespace single %}
+{% end %}
+<p>
+    Once you have this decorator in your code, the app will show up under this menu item. You can use the
+    decorator with or without arguments. Possible arguments are:
+</p>
+    <ul>
+      <li><code>title</code>: The title of the Streamlit app.</li>
+      <li><code>width</code>: The width of the Streamlit app.</li>
+      <li><code>height</code>: The height of the Streamlit app.</li>
+      <li><code>sidebar</code>: Whether to show the app in the sidebar.</li>
+      <li><code>auto_open</code>: Whether to open the app automatically when the sheet is opened</li>
+    </ul>
+<p>
+You can find more information about Streamlit at <a href="https://streamlit.io">streamlit.io</a>.
+</p>
+{% end %}

@@ -1,0 +1,73 @@
+.MuiPaper-root {
+  margin: 10px auto;
+  padding: 10px;
+  margin-top: 40px;
+  max-width: 600px;
+}
+
+.logo {
+  height: 70px;
+  margin: 0 auto;
+  padding: 10px;
+  display: block;
+}
+
+.description {
+  text-align: center;
+  margin: 10px;
+}
+
+.dropzone, .dropzone-disabled {
+  background-color: rgb(237, 237, 237);
+  border: 2px dashed lightgrey;
+  font-weight: bold;
+  width: 400px;
+  margin: 10px auto;
+  padding: 8px;
+  text-align: center;
+}
+
+.dropzone-disabled {
+  background-color: rgb(237, 237, 237);
+  color: lightgray;
+  border: 2px dashed lightgray;
+}
+
+.problem-severity-high {
+  color: red;
+}
+
+.problem-severity-medium {
+  color: orange;
+}
+
+.error-result {
+  color: red;
+}
+
+.description a {
+  color: #189982;
+  text-decoration: none;
+}
+
+.description a:hover {
+  text-decoration: underline;
+}
+
+.footer a {
+  color: #189982;
+  text-decoration: none;
+  margin: 8px;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer svg {
+  margin-right: 15px;
+}
+
+.footer svg:last-child {
+  margin-right: 0;
+}

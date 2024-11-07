@@ -1,0 +1,19 @@
+<svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="3" y="11.129" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="3" y="13.839" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="5.71" y="13.839" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="3" y="5.71" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="3" y="8.419" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="13.839" y="8.419" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="5.71" y="8.419" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="11.129" y="8.419" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="3" y="3" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="5.71" y="3" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="11.129" y="3" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="13.839" y="3" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="13.839" y="5.71" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="13.839" y="11.129" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="13.839" y="13.839" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="11.129" y="13.839" width="1.161" height="1.161" rx=".155" fill="currentColor" opacity="0.6"/>
+    <rect x="8.419" y="15" width="12" height="1.161" rx=".4" transform="rotate(-90 8.419 15)" fill="currentColor"/>
+</svg>

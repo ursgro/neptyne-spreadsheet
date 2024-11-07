@@ -1,0 +1,25 @@
+{% extends streamlit-placeholder-base.html %}
+{% block body %}
+<h1>Not found</h1>
+<p>
+  The page you're looking for doesn't exist. Sorry about that!
+</p>
+<p>
+  If you're the developer of this app, and you expect to see something here, make sure you've
+  enabled the <span style="font-family: monospace">public</span> attribute in your decorator:
+</p>
+{% apply highlight_code %}
+{% whitespace all %}
+import neptyne as nt
+import streamlit as st
+
+@nt.streamlit(
+    title="My Streamlit App",
+    public=True,
+)
+def my_streamlit_function():
+    st.write("Hello, world!")
+{% whitespace single %}
+{% end %}
+
+{% end %}
