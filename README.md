@@ -8,12 +8,8 @@ The easiest way to get started is to use the docker image. This will give you a 
 
 ```shell
 
-<<<<<<< Updated upstream
-docker-compose up -d
-=======
 docker compose up -d
 docker logs neptyne-spreadsheet-neptyne-1
->>>>>>> Stashed changes
 
 ```
 
