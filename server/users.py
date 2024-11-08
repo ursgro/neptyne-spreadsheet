@@ -19,9 +19,10 @@ WELCOME_TYNE_NAME = "welcome"
 
 
 def token_from_headers(request_handler: web.RequestHandler) -> str | None:
+    header = request_handler.request.headers.get("X-Neptyne-GSheet-Auth-Token")
+    if header:
+        return header
     header = request_handler.request.headers.get("Authorization")
-    if not header:
-        return request_handler.request.headers.get("X-Neptyne-GSheet-Auth-Token")
 
     parts = header.split(" ")
     if len(parts) != 2 or parts[0].lower() != "bearer":

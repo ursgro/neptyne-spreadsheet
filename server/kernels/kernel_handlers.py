@@ -116,7 +116,14 @@ class ConnectedKernelHandler(SessionMixin, WebSocketHandler):
         with self.make_session() as session:
             user: User | NonUser
             self.user_profile_image = ""
-            if auth_token:
+            if gsheet_auth_token:
+                assert gsheet_auth_token
+                user = NonUser.GSHEET
+                claims = decode_gsheet_extension_token(gsheet_auth_token)
+                self.user_id = None
+                self.user_name = f"anon-{claims.sheet_id}"
+                self.user_email = f"{self.user_name}@example.com"
+            else:
                 user = await authenticate_request(self, session, token=auth_token)
                 self.user_email = user.email
                 self.user_name = user.name
@@ -124,13 +131,6 @@ class ConnectedKernelHandler(SessionMixin, WebSocketHandler):
                 self.allow_other_gsheets = bool(
                     self.user_email
                 ) and self.user_email.endswith("@neptyne.com")
-            else:
-                assert gsheet_auth_token
-                user = NonUser.GSHEET
-                claims = decode_gsheet_extension_token(gsheet_auth_token)
-                self.user_id = None
-                self.user_name = f"anon-{claims.sheet_id}"
-                self.user_email = f"{self.user_name}@example.com"
 
             tyne_proxy = await self.tyne_contents_manager.get(
                 self.tyne_id, session, user, gsheet_auth_token
