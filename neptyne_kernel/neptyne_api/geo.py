@@ -1,7 +1,6 @@
 from functools import partial, wraps
 from typing import Any, Callable
 
-
 import geopandas
 import numpy as np
 import pyproj
