@@ -8,11 +8,19 @@ The easiest way to get started is to use the docker image. This will give you a 
 
 ```shell
 
+<<<<<<< Updated upstream
 docker-compose up -d
+=======
+docker compose up -d
+docker logs neptyne-spreadsheet-neptyne-1
+>>>>>>> Stashed changes
 
 ```
 
-Only need to build it once. After that, you can just run `docker-compose up`.
+The second statement will print out the shared secret you need to connect to the Neptyne server. 
+Open that url and you are in business.
+
+```shell
 
 ### Method 2: pip install
 
