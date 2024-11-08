@@ -1,10 +1,12 @@
 from typing import Any, Literal
 
+from jwt import PyJWTError
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 from tornado import web
 from tornado_sqlalchemy import SessionMixin
 
+from server.gsheet_auth import decode_gsheet_extension_token
 from server.models import (
     EmailShare,
     FirebaseUser,
@@ -17,9 +19,10 @@ WELCOME_TYNE_NAME = "welcome"
 
 
 def token_from_headers(request_handler: web.RequestHandler) -> str | None:
+    header = request_handler.request.headers.get("X-Neptyne-GSheet-Auth-Token")
+    if header:
+        return header
     header = request_handler.request.headers.get("Authorization")
-    if not header:
-        return None
 
     parts = header.split(" ")
     if len(parts) != 2 or parts[0].lower() != "bearer":
@@ -55,8 +58,11 @@ async def _authenticate_request(
         )
     if not token:
         raise web.HTTPError(401, "Missing token")
-    if not token == shared_secret:  # TODO: also check for a signed token
-        raise web.HTTPError(401, "Invalid token")
+    if not token == shared_secret:
+        try:
+            decode_gsheet_extension_token(token)
+        except PyJWTError:
+            raise web.HTTPError(401, "Invalid token")
     return await load_user(
         session,
         "<single-user-firebase-uid>",
