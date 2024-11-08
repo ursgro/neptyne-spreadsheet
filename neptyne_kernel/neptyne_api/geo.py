@@ -1,6 +1,7 @@
 from functools import partial, wraps
 from typing import Any, Callable
 
+
 import geopandas
 import numpy as np
 import pyproj
@@ -99,6 +100,7 @@ def dataset(name_or_url: str) -> GeoDataFrame:
             path = geopandas.datasets.get_path(name_or_url)
         else:
             import geoplot
+
             try:
                 path = geoplot.datasets.get_path(name_or_url)
             except ValueError:
