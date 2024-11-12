@@ -20,7 +20,7 @@ RUN /root/.cargo/bin/uv pip install --no-cache -r requirements.txt
 FROM node:16 AS frontend
 WORKDIR /app
 COPY frontend/package.json frontend/yarn.lock ./frontend/
-RUN cd frontend && yarn install
+RUN cd frontend && yarn install --network-timeout 500000
 COPY frontend ./frontend
 RUN cd frontend && yarn build
 
