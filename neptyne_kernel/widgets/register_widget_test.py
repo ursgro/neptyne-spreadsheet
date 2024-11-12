@@ -4,6 +4,7 @@ from enum import Enum
 from typing import Callable
 
 from ..cell_range import CellRange
+from ..json_tools import json_default
 from ..neptyne_protocol import WidgetParamType
 from ..util import list_like
 from .base_widget import BaseWidget
@@ -115,7 +116,7 @@ def test_register_widget():
 def test_widgets_with_enums_can_serialize():
     scatter = Scatter(x=[1, 2, 3], y=[4, 5, 6], trendline=Scatter.TrendlineType.POLY)
 
-    s = json.dumps(scatter)
+    s = json.dumps(scatter, default=json_default)
     scatter2 = Scatter(**json.loads(s))
 
     assert scatter2.trendline == Scatter.TrendlineType.POLY
