@@ -599,6 +599,8 @@ class Dash:
             return self._load_authorized_credentials(authorized_user)
         elif (oauth_credentials := config_path / "oauth_credentials.json").exists():
             return self._load_oauth_credentials(oauth_credentials)
+        else:
+            self._google_credentials = None
 
     def _authorize_service_account(self, credentials: Path):
         from google.oauth2.service_account import Credentials
