@@ -99,6 +99,7 @@ def dataset(name_or_url: str) -> GeoDataFrame:
             path = geopandas.datasets.get_path(name_or_url)
         else:
             import geoplot
+
             try:
                 path = geoplot.datasets.get_path(name_or_url)
             except ValueError:
