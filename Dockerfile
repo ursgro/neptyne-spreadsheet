@@ -34,4 +34,4 @@ ENV PYTHONUNBUFFERED=1
 
 # Database could not be found with docker-desktop (windows)
 # CMD [ "python", "server/application.py", "--sqlite-db", "/db/sqlite.db" ]
-CMD [ "python", "server/application.py", "--sqlite-db"]
+CMD [ "python", "server/application.py"]
